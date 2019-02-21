@@ -1,0 +1,3 @@
+YesNo@Are you ready for the test? Yes or No
+Compare@Why do oil float on water?
+Describe@Which direction does the Sun sets? North, East, South or West
