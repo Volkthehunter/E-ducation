@@ -6,6 +6,7 @@ expired = 0
 a=''
 root = tk.Tk()
 root.wm_title("E-ducation")
+
 #%%
 class Application(tk.Frame):
     def __init__(self, master=None):
@@ -17,7 +18,6 @@ class Application(tk.Frame):
         fname = filedialog.askopenfilename(filetypes = (('Word files',"*.docx"),('Text files',"*.txt"),('Ebook files',"*.epub"),("pdf files","*.pdf"),("All files","*")))
         self.openviewer()
         self.filelocation=fname
-        viewer = ebookviewers(master=master)
         return fname
     def create_widgets(self):
         self.quit = tk.Button(self, text="QUIT", fg="red",command=self.master.destroy)
@@ -30,28 +30,28 @@ class Application(tk.Frame):
         self.settime.pack(side=tk.RIGHT,padx=200,pady=0)
     def openviewer(self):
         #runfile 
-        viewer = ebookviewers(master=master)
+        viewer = tk.Tk()
+        viewer.wm_title("viewer")
+        viewer.quit = tk.Button(self, text="QUIT", fg="red",command=self.master.destroy)
+        viewer.quit.pack(side=tk.Right)
+        viewer.scrollbar = tk.Scrollbar(self)
+        viewer.scrollbar.pack(side = 'Right',fill='y')
+        viewer.mylist = tk.Listbox(self, yscrollcommand = tk.scrollbar.set ) 
+        viewer.scrollbar.config( command = tk.mylist.yview )
+        viewer.text = Application.filelocation().read()
+        viewer.messageVar = tk.Message(self, text = self.text) 
+        viewer.messageVar.config(bg='lightgreen') 
+        viewer.messageVar.pack()
         viewer.mainloop()
+        '''
 class ebookviewers(tk.Frame):
     def __init__(self,master = None):
-        
         super().__init__(master)
         self.width = 100
         self.master = master
-        self.pack()
-        
+        self.pack()       
     def create_widgets(self):
-        self.quit = tk.Button(self, text="QUIT", fg="red",command=self.master.destroy)
-        self.quit.pack(side="top")
-        self.scrollbar = tk.Scrollbar(self)
-        self.scrollbar.pack(side = 'Right',fill='y')
-        self.mylist = tk.Listbox(self, yscrollcommand = tk.scrollbar.set ) 
-        self.scrollbar.config( command = tk.mylist.yview )
-        self.text = 'This is our Message'
-        self.messageVar = tk.Message(self, text = self.text) 
-        self.messageVar.config(bg='lightgreen') 
-        self.messageVar.pack() 
-
-
+         '''
 master = Application(master=root)
 master.mainloop()
+
